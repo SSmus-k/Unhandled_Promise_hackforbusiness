@@ -4,7 +4,7 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
-import Home from './pages/Home'
+import { Home, Login, Signup } from './pages'
 
 const routes = createBrowserRouter([
   {
@@ -12,19 +12,20 @@ const routes = createBrowserRouter([
   },
   {
     element:<MiniLayout/>,
+    path:'/',
     children:[
       {
-        path:"/",
+        index:true,
         element:<Home/>
       },
-      // {
-      //   path:"/login",
-      //   element:<Login/>
-      // },
-      // {
-      //   path:"/signup",
-      //   element: <Signup/>
-      // }
+      {
+        path:"login",
+        element:<Login/>
+      },
+      {
+        path:"signup",
+        element: <Signup/>
+      }
     ]
   }
 ])

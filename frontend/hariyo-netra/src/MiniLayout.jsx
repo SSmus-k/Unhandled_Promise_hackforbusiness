@@ -5,7 +5,6 @@ export default function MiniLayout() {
   return (
     <>
     <Outlet/>
-    <Footer/>
     </>
   )
 }
