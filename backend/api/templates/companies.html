@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Data</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #00aa77;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2>Company Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Sector</th>
+                <th>Employee Count</th>
+                <th>Revenue</th>
+                <th>Sustainable</th>
+                <th>Has Problem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in companies %}
+            <tr>
+                <td>{{ company.sector }}</td>
+                <td>{{ company.employee_count }}</td>
+                <td>{{ company.revenue }}</td>
+                <td>{{ company.is_sustainable }}</td>
+                <td>{{ company.has_problem }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No data available</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
