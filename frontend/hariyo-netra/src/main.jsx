@@ -4,8 +4,7 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
-import { Home, Login, Signup, Dashboard, BusinessProfile } from './pages'
-import { AppProvider } from './context/AppContext'
+import { Home, Login, Signup, Dashboard, BusinessProfile, Subscription, NoSubscription } from './pages'
 
 const routes = createBrowserRouter([
   {
@@ -34,6 +33,14 @@ const routes = createBrowserRouter([
        {
          path:"profile",
         element: <BusinessProfile/>
+      },
+      {
+         path:"subscription",
+        element: <Subscription/>
+      },
+      {
+         path:"nosubscription",
+        element: <NoSubscription/>
       }
     ]
   }
