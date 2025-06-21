@@ -1,7 +1,7 @@
 import React from 'react'
 import { About } from '../components'
 import {Link} from 'react-router-dom'
-import Chart1 from '../components/Chart1'
+
 
 export default function Home() {
   return (
