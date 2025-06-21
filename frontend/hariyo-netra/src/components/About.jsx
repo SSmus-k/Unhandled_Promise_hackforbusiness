@@ -39,18 +39,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Feature 4 – Reward System */}
-      <div className="flex flex-col-reverse md:flex-row items-center gap-12">
-        <div className="md:w-1/2">
-          <img src="/Images/reward.png" alt="Reward System" className="rounded-xl shadow-md" />
-        </div>
-        <div className="md:w-1/2">
-          <h3 className="text-2xl font-semibold text-green-700 mb-3">🏆 Reward System</h3>
-          <p className="text-gray-700">
-            Encourage eco-friendly actions through a leaderboard and reward system. Earn points for consistent waste reduction and responsible recycling.
-          </p>
-        </div>
-      </div>
+      
 
       {/* Feature 5 – Waste Suggestions */}
       <div className="flex flex-col md:flex-row items-center gap-12">
@@ -65,6 +54,18 @@ export default function About() {
         </div>
       </div>
 
+{/* Feature 4 – Reward System */}
+      <div className="flex flex-col-reverse md:flex-row items-center gap-12">
+        <div className="md:w-1/2">
+          <img src="/Images/RewardPoints.png" alt="Reward System" className="rounded-xl shadow-md" />
+        </div>
+        <div className="md:w-1/2">
+          <h3 className="text-2xl font-semibold text-green-700 mb-3">🏆 Reward System</h3>
+          <p className="text-gray-700">
+            Encourage eco-friendly actions through a leaderboard and reward system. Earn points for consistent waste reduction and responsible recycling.
+          </p>
+        </div>
+      </div>
 
 
     </section>
