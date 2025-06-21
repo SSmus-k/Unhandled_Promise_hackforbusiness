@@ -4,7 +4,7 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
-import { Home, Login, Signup } from './pages'
+import { Home, Login, Signup, Dashboard, BusinessProfile } from './pages'
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +25,14 @@ const routes = createBrowserRouter([
       {
         path:"signup",
         element: <Signup/>
+      },
+      {
+         path:"dashboard",
+        element: <Dashboard/>
+      },
+       {
+         path:"profile",
+        element: <BusinessProfile/>
       }
     ]
   }

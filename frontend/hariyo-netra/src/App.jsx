@@ -4,13 +4,16 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import { BusinessProfile } from './pages'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
     <Signup/>
-    {/* <Login /> */}
+    <Login /> 
+    <Dashboard />
+    <BusinessProfile />
       <div className='app'>
         
       </div>
