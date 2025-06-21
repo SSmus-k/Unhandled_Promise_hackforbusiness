@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   return (
-   <div className="flex min-h-screen bg-[radial-gradient(circle_at_center,_#bbf7d0,_#ecfdf5)] font-sans">
+   <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
 
       {/* Sidebar */}
-<aside className="w-64 bg-transparent border-r-2 border-black p-6">
+<aside className="w-64 bg-transparent border-r-[0.5px] border-gray-200 p-6">
         
-        <h1 className="text-2xl font-bold mb-6 text-green">HariyoNetra</h1>
+        <h1 className="text-2xl font-bold mb-6 text-green"><span className="text-green-600">Hariyo</span>Netra</h1>
         <nav className="space-y-4">
           {['Dashboard', 'Profile', 'Insights', 'Bin Tracking', 'Subscription', 'Leaderboard', 'Settings'].map(item => (
-            <Link to={`/${item}`} key={item} className="block text-gray-700 hover:text-purple-600">
+            <Link to={`/${item}`} key={item} className="block text-gray-700 hover:text-green-600">
               {item}
             </Link>
           ))}
@@ -22,25 +22,25 @@ export default function Dashboard() {
       <main className="flex-1 p-6 space-y-6 overflow-auto">
         {/* Header */}
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-800">Dashboard Overview</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
           
         </div>
 
         {/* Top Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-pink-500 text-white p-4 rounded-xl shadow">
+          <div className="bg-pink-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">Total Waste</h3>
             <p className="text-2xl font-bold">2 tons</p>
           </div>
-          <div className="bg-purple-500 text-white p-4 rounded-xl shadow">
+          <div className="bg-purple-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">Reusable Waste</h3>
             <p className="text-2xl font-bold">0.5 tons</p>
           </div>
-          <div className="bg-blue-500 text-white p-4 rounded-xl shadow">
+          <div className="bg-blue-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">Waste production rate</h3>
             <p className="text-2xl font-bold">60%</p>
           </div>
-          <div className="bg-orange-400 text-white p-4 rounded-xl shadow">
+          <div className="bg-orange-400 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">SOMETHING</h3>
             <p className="text-2xl font-bold">SOMETHING</p>
           </div>
