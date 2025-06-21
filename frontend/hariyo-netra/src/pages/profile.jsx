@@ -2,81 +2,102 @@ import React from 'react';
 
 export default function BusinessProfile() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-green-100 to-green-200 p-8 font-sans text-gray-800">
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div className="flex flex-col md:flex-row items-center p-6 border-b">
+    <div className="min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
+      <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl bg-white/70 backdrop-blur-md p-8 space-y-8">
+
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row items-center gap-6">
+            {/* Reward Points Bar */}
+
           <img
             src="/Images/KUSOM.png"
             alt="Business Logo"
-            className="w-32 h-32 rounded-xl object-cover border"
+            className="w-32 h-32 object-cover rounded-2xl border border-green-300 shadow"
           />
-          <div className="md:ml-6 mt-4 md:mt-0 text-center md:text-left">
-            <h2 className="text-2xl font-bold">KUSOM Industries</h2>
-            <p className="text-sm text-gray-600">Producing Enterprenuers • Dhulikhel, Nepal</p>
-            <div className="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
+
+          
+          <div className="flex flex-col items-center md:items-start">
+            <h2 className="text-3xl font-extrabold text-green-700">KUSOM Industries</h2>
+            <p className="text-sm text-gray-500 mt-1">Producing Enterprenuers • Dhulikhel, Nepal</p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
               <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">Top Rated</span>
               <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">20+ Projects</span>
               <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold">Sustainable</span>
             </div>
-          </div>        
+          </div>
+          
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Contact Info</h3>
-            <p>Email: <a className="text-green-600" href="mailto:example@gmail.com">example@gmail.com</a></p>
+                        <div className="bg-white rounded-xl shadow-md px-6 py-4 flex items-center justify-between border border-green-100">
+                <div className="text-sm md:text-base font-medium text-gray-700">🎁 Reward Points</div>
+                <div className="w-full mx-4 bg-green-100 h-4 rounded-full relative overflow-hidden">
+                    <div className="bg-green-500 h-full rounded-full" style={{ width: '70%' }}></div>
+                </div>
+                <div className="text-sm md:text-base font-semibold text-green-700">350 pts</div>
+                </div>
+                <h3 className="text-center">Attain 350 points to get 1 week of free premium</h3>
+
+
+        {/* Info Cards */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Contact Info */}
+          <div className="bg-white rounded-2xl p-6 shadow-md space-y-2">
+            <h3 className="text-xl font-semibold mb-3">📞 Contact Info</h3>
+            <p>Email: <a className="text-green-600 hover:underline" href="mailto:example@gmail.com">example@gmail.com</a></p>
             <p>Phone: <span className="text-gray-700">(415) 0123-456-789</span></p>
-            <p>Website: <a className="text-green-600" href="#">www.example.com</a></p>
-            <div className="flex gap-4 mt-2">
-              <i className="fab fa-facebook text-gray-500"></i>
-              <i className="fab fa-instagram text-gray-500"></i>
-              <i className="fab fa-linkedin text-gray-500"></i>
+            <p>Website: <a className="text-green-600 hover:underline" href="#">www.example.com</a></p>
+            <div className="flex gap-4 mt-2 text-xl text-gray-500">
+              <i className="fab fa-facebook hover:text-blue-500"></i>
+              <i className="fab fa-instagram hover:text-pink-500"></i>
+              <i className="fab fa-linkedin hover:text-blue-700"></i>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Stats</h3>
+          {/* Stats */}
+          <div className="bg-white rounded-2xl p-6 shadow-md">
+            <h3 className="text-xl font-semibold mb-4">📊 Stats</h3>
             <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="bg-green-100 rounded-xl p-4">
-                <p className="text-xl font-bold">99%</p>
+              <div className="bg-green-50 rounded-xl p-4">
+                <p className="text-2xl font-bold text-green-600">99%</p>
                 <p className="text-sm text-gray-600">Sustainability</p>
               </div>
-              <div className="bg-green-100 rounded-xl p-4">
-                <p className="text-xl font-bold">0.1%</p>
+              <div className="bg-green-50 rounded-xl p-4">
+                <p className="text-2xl font-bold text-green-600">0.1%</p>
                 <p className="text-sm text-gray-600">Waste Production</p>
               </div>
-              <div className="bg-green-100 rounded-xl p-4">
+              <div className="flex items-center justify-center">
                 <div className="rating">
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
-                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" defaultChecked />
-                    </div>
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
+                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="p-6 border-t">
-          <h3 className="text-lg font-semibold mb-4">Yearly Report</h3>
-          <ul className="space-y-3">
-            <li className="border rounded-xl p-4">
+        {/* Yearly Report */}
+        <div className="bg-white rounded-2xl p-6 shadow-md">
+          <h3 className="text-xl font-semibold mb-4">🗓 Yearly Report</h3>
+          <div className="space-y-3">
+            <div className="border border-green-100 rounded-xl p-4 hover:bg-green-50 transition">
               <p className="text-sm text-gray-500">2024</p>
-              <p className="font-medium">Completely Green Indeustry</p>
+              <p className="font-medium">Completely Green Industry</p>
               <p className="text-sm text-gray-600">Minimal waste production</p>
-            </li>
-            <li className="border rounded-xl p-4">
+            </div>
+            <div className="border border-green-100 rounded-xl p-4 hover:bg-green-50 transition">
               <p className="text-sm text-gray-500">2023</p>
-              <p className="font-medium">Almost Ideal </p>
+              <p className="font-medium">Almost Ideal</p>
               <p className="text-sm text-gray-600">80% sustainable</p>
-            </li>
-            <li className="border rounded-xl p-4">
+            </div>
+            <div className="border border-green-100 rounded-xl p-4 hover:bg-green-50 transition">
               <p className="text-sm text-gray-500">2022</p>
               <p className="font-medium">Red zone</p>
               <p className="text-sm text-gray-600">Too much extra waste</p>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

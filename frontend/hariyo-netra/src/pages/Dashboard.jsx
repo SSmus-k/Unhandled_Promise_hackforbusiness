@@ -10,7 +10,7 @@ export default function Dashboard() {
         
         <h1 className="text-2xl font-bold mb-6 text-green"><span className="text-green-600">Hariyo</span>Netra</h1>
         <nav className="space-y-4">
-          {['Dashboard', 'Profile', 'Insights', 'Bin Tracking', 'Subscription', 'Leaderboard', 'Settings'].map(item => (
+          {['Dashboard', 'Profile', 'Insights', 'Bin Tracking', 'Subscription', 'Settings'].map(item => (
             <Link to={`/${item}`} key={item} className="block text-gray-700 hover:text-green-600">
               {item}
             </Link>
