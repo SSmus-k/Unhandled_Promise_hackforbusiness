@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+} from 'recharts';
 
 import { useApp } from '../context/AppContext';
 
 export default function Dashboard() {
   const {user} = useApp()
 
-  // const wpr = user.
+  const wasteGraph = [
+    {month:"Jan",waste:user.waste_amount - 10},
+    {month:"Feb",waste:user.waste_amount + 10},
+    {month:"Mar",waste:user.waste_amount - 40},
+    {month:"Apr",waste:user.waste_amount + 40},
+    {month:"May",waste:user.waste_amount - 50},
+  ]
+  
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
@@ -53,14 +63,24 @@ export default function Dashboard() {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="col-span-2 bg-white rounded-xl p-4 shadow h-64 flex items-center justify-center text-gray-400">
-            <img
-              src="/Images/linechartexample.jpg"
-              alt="Favicon"
-              className="max-h-60 max-w-400 object-contain mb-4"
-            />
-          </div>
+        <div className="flex justify-around gap-4">
+            <div className="w-full h-[300px] bg-white rounded-xl shadow-md p-6">
+      <h2 className="text-xl font-bold text-green-700 mb-2">Monthly Waste Production Trend</h2>
+      <p className="text-sm text-gray-500 mb-4">Total waste generated each month (in kg)</p>
+      <ResponsiveContainer width="100%" height="80%">
+        <LineChart
+          data={wasteGraph}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="month" />
+          <YAxis label={{ value: 'kg', angle: -90, position: 'insideLeft' }} />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="waste" stroke="#16a34a" strokeWidth={3} activeDot={{ r: 8 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
           <div className="bg-white rounded-xl p-4 shadow h-64 flex items-center justify-center text-gray-400">
             <img
               src="/Images/piechartexample.png"

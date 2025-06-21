@@ -1,6 +1,11 @@
 import React from 'react';
 
+import { useApp } from '../context/AppContext';
+
+
+
 export default function BusinessProfile() {
+  const {user} = useApp()
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl bg-white/70 backdrop-blur-md p-8 space-y-8">
@@ -17,7 +22,7 @@ export default function BusinessProfile() {
 
           
           <div className="flex flex-col items-center md:items-start">
-            <h2 className="text-3xl font-extrabold text-green-700">KUSOM Industries</h2>
+            <h2 className="text-3xl font-extrabold text-green-700">{user.name}</h2>
             <p className="text-sm text-gray-500 mt-1">Producing Enterprenuers • Dhulikhel, Nepal</p>
             <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
               <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">Top Rated</span>
@@ -43,7 +48,7 @@ export default function BusinessProfile() {
           {/* Contact Info */}
           <div className="bg-white rounded-2xl p-6 shadow-md space-y-2">
             <h3 className="text-xl font-semibold mb-3">📞 Contact Info</h3>
-            <p>Email: <a className="text-green-600 hover:underline" href="mailto:example@gmail.com">example@gmail.com</a></p>
+            <p>Email: <a className="text-green-600 hover:underline" href="mailto:example@gmail.com">{user.email}</a></p>
             <p>Phone: <span className="text-gray-700">(415) 0123-456-789</span></p>
             <p>Website: <a className="text-green-600 hover:underline" href="#">www.example.com</a></p>
             <div className="flex gap-4 mt-2 text-xl text-gray-500">

@@ -4,12 +4,13 @@
     name: "EcoTech Pvt. Ltd.",
     email: "eco@tech.com",
     password: "eco123",
-    sector: "Tech",
+    sector: ["Tech","Chemical"],
     totalProducts: 200,
     waste_type: "Electronic",
     is_sustainable: true,
     isSubscribed: false,
     totalMaterials:500,
+    phone:"01-4412345"
   },
   {
     id: 2,
@@ -22,6 +23,7 @@
     is_sustainable: false,
     isSubscribed: false,
     totalMaterials:500,
+    phone:"021-5267890"
   },
   {
     id: 3,
@@ -34,6 +36,7 @@
     is_sustainable: false,
     isSubscribed: false,
     totalMaterials:500,
+    phone:"01-4211987"
   },
   {
     id: 4,
@@ -46,6 +49,7 @@
     is_sustainable: true,
     isSubscribed: false,
     totalMaterials:500,
+    phone:"01-4536789"
   }
 ];
 
