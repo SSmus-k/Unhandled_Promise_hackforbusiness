@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Data Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Revenue by Sector</h2>
+    <canvas id="revenueChart"></canvas>
+
+    <h2>Employee Count by Sector</h2>
+    <canvas id="employeeChart"></canvas>
+
+    <h2>Waste Amount by Sector</h2>
+    <canvas id="wasteAmountChart"></canvas>
+
+    <h2>Waste Type Counts</h2>
+    <canvas id="wasteTypeChart"></canvas>
+
+    <script>
+        const sectors = {{ sectors|safe }};
+        const revenues = {{ revenues|safe }};
+        const employee_counts = {{ employee_counts|safe }};
+        const waste_amounts = {{ waste_amounts|safe }};
+        const waste_types = {{ waste_types|safe }};
+        const waste_counts = {{ waste_counts|safe }};
+
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'bar',
+            data: {
+                labels: sectors,
+                datasets: [{
+                    label: 'Revenue',
+                    data: revenues,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('employeeChart'), {
+            type: 'line',
+            data: {
+                labels: sectors,
+                datasets: [{
+                    label: 'Employee Count',
+                    data: employee_counts,
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    fill: false
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('wasteAmountChart'), {
+            type: 'bar',
+            data: {
+                labels: sectors,
+                datasets: [{
+                    label: 'Waste Amount',
+                    data: waste_amounts,
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)'
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('wasteTypeChart'), {
+            type: 'pie',
+            data: {
+                labels: waste_types,
+                datasets: [{
+                    label: 'Waste Type Counts',
+                    data: waste_counts,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ]
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

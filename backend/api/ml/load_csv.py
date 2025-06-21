@@ -2,16 +2,16 @@ import os
 import django
 import pandas as pd
 
-# Setup Django environment
+# Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hariyobase.settings')
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.sys.path.append(BASE_DIR)
 django.setup()
 
 from api.models import CompanyData
 
 def load_csv_to_db():
-    file_path = os.path.join(BASE_DIR,   'ml', 'training_data.csv')
+    file_path = os.path.join(BASE_DIR,  'api', 'ml', 'training_data.csv')
     df = pd.read_csv(file_path)
 
     for _, row in df.iterrows():

@@ -12,6 +12,10 @@
             <th>Revenue</th>
             <th>Sustainable?</th>
             <th>Has Problem?</th>
+            <th>Waste Type</th>
+            <th>Waste Amount</th>
+
+
         </tr>
         {% for company in companies %}
         <tr>
@@ -20,6 +24,9 @@
             <td>{{ company.revenue }}</td>
             <td>{{ company.is_sustainable }}</td>
             <td>{{ company.has_problem }}</td>
+            <td>{{ company.waste_type }}</td>
+            <td>{{ company.waste_amount }}</td>
+
         </tr>
         {% endfor %}
     </table>

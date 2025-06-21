@@ -30,7 +30,9 @@ def run_model_and_save():
             employee_count=row["employee_count"],
             revenue=row["revenue"],
             is_sustainable=row["is_sustainable"],
-            has_problem=bool(predictions[i])
+            has_problem=bool(predictions[i]),
+            waste_amount=row['waste_amount'],
+            waste_type=row['waste_type']
         )
 
 if __name__ == "__main__":
