@@ -6,6 +6,8 @@ import { useApp } from '../context/AppContext';
 export default function Dashboard() {
   const {user} = useApp()
 
+  // const wpr = user.
+
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
 

@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
 import { Home, Login, Signup, Dashboard, BusinessProfile, Subscription, NoSubscription } from './pages'
+import { AppProvider } from './context/AppContext'
 
 const routes = createBrowserRouter([
   {
