@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
 import { Home, Login, Signup, Dashboard, BusinessProfile } from './pages'
+import { AppProvider } from './context/AppContext'
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +41,8 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <AppProvider>
     <RouterProvider router={routes}></RouterProvider>
+    </AppProvider>
   </StrictMode>,
 )

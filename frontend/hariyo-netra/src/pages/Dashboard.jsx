@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useApp } from '../context/AppContext';
+
 export default function Dashboard() {
+  const {user} = useApp()
+
   return (
-   <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
+    <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
 
       {/* Sidebar */}
-<aside className="w-64 bg-transparent border-r-[0.5px] border-gray-200 p-6">
-        
+      <aside className="w-64 bg-transparent border-r-[0.5px] border-gray-200 p-6">
+
         <h1 className="text-2xl font-bold mb-6 text-green"><span className="text-green-600">Hariyo</span>Netra</h1>
         <nav className="space-y-4">
           {['Dashboard', 'Profile', 'Insights', 'Bin Tracking', 'Subscription', 'Settings'].map(item => (
@@ -23,14 +27,14 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
-          
+
         </div>
 
         {/* Top Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-pink-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">Total Waste</h3>
-            <p className="text-2xl font-bold">2 tons</p>
+            <p className="text-2xl font-bold">{user?.waste_amount} kg</p>
           </div>
           <div className="bg-purple-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
             <h3 className="text-sm">Reusable Waste</h3>
@@ -49,7 +53,7 @@ export default function Dashboard() {
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <div className="col-span-2 bg-white rounded-xl p-4 shadow h-64 flex items-center justify-center text-gray-400">
-             <img
+            <img
               src="/Images/linechartexample.jpg"
               alt="Favicon"
               className="max-h-60 max-w-400 object-contain mb-4"
@@ -64,27 +68,27 @@ export default function Dashboard() {
           </div>
         </div>
         {/* Info Boxes Below Charts */}
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-  {/* Subscription Info Box */}
-  <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
-    <h1 className="text-3xl font-serif font-semibold">Subscription status: PRO ⭐</h1>
-    <br/>
-    <img
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Subscription Info Box */}
+          <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
+            <h1 className="text-3xl font-serif font-semibold">Subscription status: PRO ⭐</h1>
+            <br />
+            <img
               src="/Images/daysremainingexample.svg"
               alt="Favicon"
               className="max-h-30 max-w-30 object-contain mb-4"
             />
-    <p className="text-3xl font-bold text-green-600">Days Remaining</p>
-  </div>
+            <p className="text-3xl font-bold text-green-600">Days Remaining</p>
+          </div>
 
-  {/* Bin Tracking Info Box */}
-  <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
-    <h3 className="text-lg font-semibold text-gray-700 mb-2">Bin Tracking</h3>
-    <p className="text-sm text-gray-600">3 Bins approaching full capacity</p>
-  </div>
-</div>
-
-        </main>
+          {/* Bin Tracking Info Box */}
+          <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">Bin Tracking</h3>
+            <p className="text-sm text-gray-600">3 Bins approaching full capacity</p>
+          </div>
         </div>
+
+      </main>
+    </div>
   );
 }

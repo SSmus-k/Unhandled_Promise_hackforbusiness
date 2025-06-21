@@ -1,11 +1,32 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+
+import {useApp} from '../context/AppContext'
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const {login} = useApp()
+
+  const navigate = useNavigate()
+const handleSubmit = async (e)=>{
+  e.preventDefault()
+  try{
+    const loggedInUser = await login(email, password)
+    if(loggedInUser){
+      navigate('/dashboard')
+      setError(false)
+    }
+  }catch(err){
+    setError(true)
+  }
+  
+}
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
+    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
       <Link to={'/'}>
         <img
           src="/Images/logo.png"
@@ -48,16 +69,22 @@ export default function Login() {
             <fieldset className="space-y-4 w-full">
               <label className="block text-sm font-medium text-left">Email:</label>
               <input
+              required
                 type="text"
                 className="input w-full h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
+                value={email}
+                onChange={(e)=>(setEmail(e.target.value))}
               />
 
               <label className="block text-sm font-medium text-left">Password:</label>
               <input
+              required
                 type={showPassword ? 'text' : 'password'}
                 className="input w-full h-[50px] text-black"
                 placeholder="•••••••••••"
+                value={password}
+                onChange={(e)=>setPassword(e.target.value)}
               />
 
               {/* Show Password + Forgot */}
@@ -73,9 +100,15 @@ export default function Login() {
                 </label>
                 <a href="#" className="text-white underline text-xs">Forgot password?</a>
               </div>
+              {error && <div role="alert" className="alert alert-warning">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span>Warning: Invalid email address or password!</span>
+      </div>}
 
               {/* Login button */}
-              <button className="btn bg-stone-700 text-white w-full mt-4 hover:bg-gray-800">Log In</button>
+              <button type='submit' className="btn bg-stone-700 text-white w-full mt-4 hover:bg-gray-800">Log In</button>
             </fieldset>
 
             {/* OR + social icons */}
@@ -92,6 +125,7 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </div>
+      
+    </form>
   )
 }
