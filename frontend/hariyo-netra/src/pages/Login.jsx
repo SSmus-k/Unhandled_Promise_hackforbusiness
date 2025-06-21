@@ -6,11 +6,13 @@ export default function Login() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
-      <img
-        src="/Images/logo.png"
-        alt="Logo"
-        className="fixed top-4 right-4 w-40 h-30 object-contain z-50"
-      />
+      <Link to={'/'}>
+        <img
+          src="/Images/logo.png"
+          alt="Logo"
+          className="fixed top-4 right-4 w-40 h-30 object-contain z-50"
+        />
+      </Link>
 
       {/* Larger box container */}
       <div className="bg-base-200 rounded-xl shadow-md w-[1000px] h-[600px] flex overflow-hidden">
