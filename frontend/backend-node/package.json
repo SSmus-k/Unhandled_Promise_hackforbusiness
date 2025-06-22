@@ -1,0 +1,19 @@
+{
+  "name": "backend-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "exports": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Pushkar",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
