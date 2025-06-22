@@ -12,8 +12,6 @@ def import_data_from_csv(file_path):
             # Create a model instance and save
             company = CompanyData(
                 sector=row['sector'],
-                employee_count=int(row['employee_count']),
-                revenue=float(row['revenue']),
                 is_sustainable=is_sustainable,
                 has_problem=has_problem,
             )

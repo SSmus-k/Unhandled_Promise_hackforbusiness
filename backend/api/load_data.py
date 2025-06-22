@@ -17,8 +17,6 @@ def load_csv_to_db():
     for _, row in df.iterrows():
         CompanyData.objects.create(
             sector=row['sector'],
-            employee_count=row['employee_count'],
-            revenue=row['revenue'],
             is_sustainable=bool(row['is_sustainable']),
             has_problem=bool(row['has_problem']),
             waste_amount=row['waste_amount'],
