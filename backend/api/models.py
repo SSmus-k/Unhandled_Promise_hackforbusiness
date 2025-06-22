@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class CompanyData(models.Model):
     SECTOR_CHOICES = [
@@ -10,6 +11,7 @@ class CompanyData(models.Model):
         ('IT', 'IT'),
     ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='company_entries')
     name = models.CharField(max_length=200, help_text="Company name", default="Unknown")
     sector = models.CharField(max_length=50, choices=SECTOR_CHOICES)
     is_sustainable = models.BooleanField()
