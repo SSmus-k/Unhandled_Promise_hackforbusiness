@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Company Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+    }
+    canvas {
+      max-width: 900px;
+      margin: 40px auto;
+      display: block;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Company Dashboard</h1>
+  <h2>Upload Company Data CSV</h2>
+<form method="post" enctype="multipart/form-data" action="{% url 'upload_csv' %}">
+    {% csrf_token %}
+    <input type="file" name="csv_file" accept=".csv" required>
+    <button type="submit">Upload</button>
+</form>
+
+
+  <h2>Company Data</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Sector</th>
+        <th>Sustainable?</th>
+        <th>Has Problem?</th>
+        <th>Waste Type</th>
+        <th>Waste Amount (kg)</th>
+        <th>Predicted Waste Next Year (kg)</th>
+        <th>Yearly Waste Produced (kg)</th>
+        <th>Reduced Waste (kg)</th>
+        <th>Date Recorded</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for company in companies %}
+      <tr>
+        <td>{{ company.sector }}</td>
+        <td>{% if company.is_sustainable %}✅{% else %}❌{% endif %}</td>
+        <td>{% if company.has_problem %}⚠️{% else %}✔️{% endif %}</td>
+        <td>{{ company.waste_type|default:"-" }}</td>
+        <td>{{ company.waste_amount|default:"-" }}</td>
+        <td>{{ company.predicted_waste_next_year|default:"-" }}</td>
+        <td>{{ company.yearly_produced_waste|default:"-" }}</td>
+        <td>{{ company.reduced_waste_due_to_recommendation|default:"-" }}</td>
+        <td>{{ company.date_recorded|date:"Y-m-d" }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="9" style="font-style: italic;">No data available.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Waste Amount by Sector</h2>
+  <canvas id="wasteAmountChart"></canvas>
+
+  <h2>Waste Type Distribution</h2>
+  <canvas id="wasteTypeChart"></canvas>
+
+  <h2>Yearly Waste Production</h2>
+  <canvas id="yearlyWasteChart"></canvas>
+
+  <h2>Predicted Waste Next Year by Sector</h2>
+  <canvas id="predictedWasteChart"></canvas>
+
+  <h2>Reduced Waste Due to Recommendations</h2>
+  <canvas id="reducedWasteChart"></canvas>
+
+  <script>
+    const sectors = {{ sectors|safe }};
+    const wasteAmounts = {{ waste_amounts|safe }};
+    const wasteTypes = {{ waste_types|safe }};
+    const wasteCounts = {{ waste_counts|safe }};
+    const years = {{ years|safe }};
+    const yearlyWaste = {{ waste_by_year|safe }};
+    const predictedWaste = {{ predicted_by_sector|safe }};
+    const reducedWaste = {{ reduced_by_sector|safe }};
+
+    new Chart(document.getElementById('wasteAmountChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: sectors,
+        datasets: [{
+          label: 'Waste Amount (kg)',
+          data: wasteAmounts,
+          backgroundColor: 'rgba(255, 159, 64, 0.7)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    new Chart(document.getElementById('wasteTypeChart').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: wasteTypes,
+        datasets: [{
+          label: 'Waste Type Distribution',
+          data: wasteCounts,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    new Chart(document.getElementById('yearlyWasteChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Yearly Waste (kg)',
+          data: yearlyWaste,
+          borderColor: '#36A2EB',
+          fill: false,
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    new Chart(document.getElementById('predictedWasteChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: sectors,
+        datasets: [{
+          label: 'Predicted Waste Next Year (kg)',
+          data: predictedWaste,
+          backgroundColor: 'rgba(52, 152, 219, 0.6)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+
+    new Chart(document.getElementById('reducedWasteChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: sectors,
+        datasets: [{
+          label: 'Reduced Waste (kg)',
+          data: reducedWaste,
+          backgroundColor: 'rgba(46, 204, 113, 0.6)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  </script>
+</body>
+</html>

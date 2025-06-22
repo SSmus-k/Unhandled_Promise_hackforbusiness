@@ -1,0 +1,11 @@
+name,sector,is_sustainable,has_problem,waste_type,waste_amount,predicted_waste_next_year,yearly_produced_waste,reduced_waste_due_to_recommendation
+GreenTech,Tech,1,0,Electronic,200,220,300,20
+FinServe,Finance,0,1,Paper,150,180,250,10
+HealthPlus,Healthcare,1,0,Chemical,300,310,400,15
+MakeIt,Manufacturing,0,1,Plastic,400,430,500,30
+ShopEase,Retail,1,0,Organic,100,110,150,5
+CodeFlow,IT,1,0,Electronic,120,130,200,10
+BankRight,Finance,1,0,None,0,10,30,2
+MediCare,Healthcare,0,1,Chemical,500,520,700,50
+RetailWave,Retail,0,1,Plastic,220,240,320,25
+SysCore,Tech,0,1,Electronic,250,270,350,18

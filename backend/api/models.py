@@ -10,13 +10,16 @@ class CompanyData(models.Model):
         ('IT', 'IT'),
     ]
 
+    name = models.CharField(max_length=200, help_text="Company name", default="Unknown")
     sector = models.CharField(max_length=50, choices=SECTOR_CHOICES)
-    employee_count = models.IntegerField()
-    revenue = models.FloatField(help_text="Annual revenue in local currency")
     is_sustainable = models.BooleanField()
     has_problem = models.BooleanField(default=False)
-    waste_amount = models.FloatField(help_text="Waste produced per year (kg)", null=True, blank=True)
-    waste_type = models.CharField(max_length=100, help_text="E.g. Plastic, Organic, Electronic", null=True, blank=True)
+    waste_type = models.CharField(max_length=100, null=True, blank=True)
+    waste_amount = models.FloatField(null=True, blank=True)
+    predicted_waste_next_year = models.FloatField(null=True, blank=True)
+    yearly_produced_waste = models.FloatField(null=True, blank=True)
+    reduced_waste_due_to_recommendation = models.FloatField(null=True, blank=True)
+    date_recorded = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f"{self.sector} - {self.revenue}"
+        return f"{self.name} ({self.sector})"
