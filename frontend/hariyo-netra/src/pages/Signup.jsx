@@ -106,7 +106,7 @@ const handleChange = (e) => {
               name='email'
                 value={formData.email}
                 onChange={handleChange}
-                type="text"
+                type="email"
                 className="input w-full h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
               />

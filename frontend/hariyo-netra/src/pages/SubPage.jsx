@@ -43,7 +43,7 @@ const plans = [
   },
 ]
 
-export default function Card() {
+export default function SubPage() {
   return (
     <div className="py-16 px-6 bg-transparent text-gray-800">
       <div className="text-center mb-12">

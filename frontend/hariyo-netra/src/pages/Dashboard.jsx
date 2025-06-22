@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 
 import { useApp } from '../context/AppContext';
-import { StatusCard } from '../components';
+import { BinCard, StatusCard } from '../components';
 
 export default function Dashboard() {
   const {user} = useApp()
@@ -30,28 +30,32 @@ export default function Dashboard() {
       {/* Main Dashboard */}
       <main className="flex-1 p-6 space-y-6 overflow-auto">
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
-
+        <div className="flex flex-col">
+          <h2 className="text-4xl font-bold text-gray-800">Dashboard Overview</h2>
+          <br />
+          <h3 className='text-xl font-bold text-gray-800'>Welcome, {user.name}</h3>
         </div>
 
         {/* Top Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-orange-400 text-white flex  justify-center p-4 gap-4 items-center rounded-xl ">
+            <h3 className="text-lg font-semibold">Enter your company's report (.csv):</h3>
+            <form className="text-md font-bold flex gap-4 ">
+              <p><input type="file" accept=".csv" className="file-input" /></p>
+              <button className="btn" type='submit'>Upload</button>
+            </form>
+          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4">
           <div className="bg-pink-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
-            <h3 className="text-sm">Total Waste</h3>
+            <h3 className="text-md">Total Waste</h3>
             <p className="text-2xl font-bold">{user?.waste_amount} kg</p>
           </div>
           <div className="bg-purple-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
-            <h3 className="text-sm">Reusable Waste</h3>
+            <h3 className="text-md">Reusable Waste</h3>
             <p className="text-2xl font-bold">0.5 tons</p>
           </div>
           <div className="bg-blue-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
-            <h3 className="text-sm">Waste production rate</h3>
+            <h3 className="text-md">Waste production rate</h3>
             <p className="text-2xl font-bold">60%</p>
-          </div>
-          <div className="bg-orange-400 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">
-            <h3 className="text-sm">SOMETHING</h3>
-            <p className="text-2xl font-bold">SOMETHING</p>
           </div>
         </div>
 
@@ -83,15 +87,11 @@ export default function Dashboard() {
           </div>
         </div>
         {/* Info Boxes Below Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Subscription Info Box */}
           <StatusCard/>
-
           {/* Bin Tracking Info Box */}
-          <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
-            <h3 className="text-lg font-semibold text-gray-700 mb-2">Bin Tracking</h3>
-            <p className="text-sm text-gray-600">3 Bins approaching full capacity</p>
-          </div>
+          <BinCard binName={"Bin 1"} location ={"Dhulikhel"} lastCollected={"2025-06-21"} status={"Full"} fillLevel={"90"}/>
         </div>
 
       </main>

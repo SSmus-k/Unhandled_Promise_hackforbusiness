@@ -67,10 +67,11 @@ const handleSubmit = async (e)=>{
             <h1 className="text-white font-bold text-2xl text-center mb-8">Log In</h1>
 
             <fieldset className="space-y-4 w-full">
+              
               <label className="block text-sm font-medium text-left">Email:</label>
               <input
               required
-                type="text"
+                type="email"
                 className="input w-full h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
                 value={email}

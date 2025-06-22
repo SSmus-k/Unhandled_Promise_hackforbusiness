@@ -1,8 +1,11 @@
 import React from 'react'
 import { useApp } from '../context/AppContext'
 import { BadgeCheck, AlertCircle, CalendarClock } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 export default function StatusCard() {
+
+    const navigate = useNavigate()
   const { user } = useApp()
 
   const plan = user?.plan || 'Basic'
@@ -17,7 +20,7 @@ export default function StatusCard() {
   }
 
   return (
-    <div className="bg-white shadow-xl rounded-2xl p-6 w-full max-w-md mx-auto border border-gray-200 space-y-4">
+    <div className="bg-white shadow-xl rounded-2xl p-6 w-full  mx-auto border border-gray-200 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -59,6 +62,7 @@ export default function StatusCard() {
       {/* CTA */}
       <div className="pt-3">
         <button
+        onClick={() => navigate('/subpage')}
           className={`w-full py-2 px-4 rounded-lg text-sm font-semibold text-white shadow ${
             isSubscribed ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'
           } transition`}
