@@ -7,7 +7,7 @@ import { useApp } from '../context/AppContext';
 export default function BusinessProfile() {
   const {user} = useApp()
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
+    <div className="flex-1 min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl bg-white/70 backdrop-blur-md p-8 space-y-8">
 
         {/* Top Section */}

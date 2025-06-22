@@ -4,7 +4,7 @@
     name: "EcoTech Pvt. Ltd.",
     email: "eco@tech.com",
     password: "eco123",
-    sector: ["Tech","Chemical"],
+    sector: "Tech",
     totalProducts: 200,
     waste_type: "Electronic",
     is_sustainable: true,

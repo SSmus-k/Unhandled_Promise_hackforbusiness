@@ -8,7 +8,7 @@ export default function Subscription() {
   const offset = circumference * (1 - daysLeft / totalDays);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800 ">
+    <div className="flex-1 min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800 ">
       <div className="max-w-5xl mx-auto bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-8 space-y-8 mt-20">
 
         {/* Header Section */}

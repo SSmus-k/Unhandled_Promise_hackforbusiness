@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
 import { useApp } from '../context/AppContext';
+import { Sidebar } from '../components';
 
 export default function Dashboard() {
   const {user} = useApp()
+  const location = useLocation()
+
+  const isActive = (path) => location.pathname === path
 
   const wasteGraph = [
     {month:"Jan",waste:user.waste_amount - 10},
@@ -19,20 +23,9 @@ export default function Dashboard() {
   
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
+    <div className="flex flex-1 min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] font-sans">
 
-      {/* Sidebar */}
-      <aside className="w-64 bg-transparent border-r-[0.5px] border-gray-200 p-6">
-
-        <h1 className="text-2xl font-bold mb-6 text-green"><span className="text-green-600">Hariyo</span>Netra</h1>
-        <nav className="space-y-4">
-          {['Dashboard', 'Profile', 'Insights', 'Bin Tracking', 'Subscription'].map(item => (
-            <Link to={`/${item}`} key={item} className="block text-gray-700 hover:text-green-600">
-              {item}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+     {/* <Sidebar/> */}
 
       {/* Main Dashboard */}
       <main className="flex-1 p-6 space-y-6 overflow-auto">

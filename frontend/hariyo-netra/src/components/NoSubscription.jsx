@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function NoSubscription() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
+    <div className="min-h-screen flex-1 bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
       <div className="max-w-4xl mx-auto bg-white/70 backdrop-blur-md rounded-3xl shadow-xl p-8 space-y-10 text-center m-10">
 
         {/* Welcome Section */}

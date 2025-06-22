@@ -1,13 +1,16 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
-import { Header, Footer } from './components'
+import { Header, Footer, Sidebar } from './components'
+import ProtectedRoute from './protectedRoute'
 
 export default function MainLayout() {
   return (
-    <>
-    <Header/>
-    <Outlet/>
+    <ProtectedRoute>
+    <div className='flex'>
+      <Sidebar/>
+      <Outlet/>
+    </div>
     <Footer/>
-    </>
+    </ProtectedRoute>
   )
 }
