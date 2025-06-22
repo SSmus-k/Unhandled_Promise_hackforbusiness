@@ -5,5 +5,8 @@ import NoSubscription from "./NoSubscription";
 import Subscription from "./Subscription"
 import Logout from "./Logout";
 import Sidebar from "./Sidebar";
+import StatusCard from "./statusCard";
+import BinCard from "./BinCard";
+import CsvUpload from "./CsvUpload";
 
-export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar}
+export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar, StatusCard, BinCard, CsvUpload}

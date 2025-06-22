@@ -1,2 +1,7 @@
+<<<<<<< HEAD
+git rm --cached -r backend/api/pycache/
+git rm --cached -r backend/hariyobase/pycache/
+=======
 git rm --cached -r backend/api/__pycache__/
 git rm --cached -r backend/hariyobase/__pycache__/
+>>>>>>> origin/main

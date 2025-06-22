@@ -15,7 +15,7 @@ export default function BusinessProfile() {
             {/* Reward Points Bar */}
 
           <img
-            src="/Images/KUSOM.png"
+            src="/Images/Donald.jpg"
             alt="Business Logo"
             className="w-32 h-32 object-cover rounded-2xl border border-green-300 shadow"
           />
@@ -23,7 +23,7 @@ export default function BusinessProfile() {
           
           <div className="flex flex-col items-center md:items-start">
             <h2 className="text-3xl font-extrabold text-green-700">{user.name}</h2>
-            <p className="text-sm text-gray-500 mt-1">Producing Enterprenuers • Dhulikhel, Nepal</p>
+            <p className="text-sm text-gray-500 mt-1">Producing Cement • Dhulikhel • 1990 </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
               <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">Top Rated</span>
               <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">20+ Projects</span>
@@ -100,7 +100,7 @@ export default function BusinessProfile() {
             <div className="border border-green-100 rounded-xl p-4 hover:bg-green-50 transition">
               <p className="text-sm text-gray-500">2022</p>
               <p className="font-medium">Red zone</p>
-              <p className="text-sm text-gray-600">Too much extra waste</p>
+              <p className="text-sm text-gray-600">Excessive extra waste</p>
             </div>
           </div>
         </div>

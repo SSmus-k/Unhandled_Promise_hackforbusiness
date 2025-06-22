@@ -9,9 +9,9 @@ const bins = [
 ];
 
 const statusColors = {
-  full: '#ef4444',     // Tailwind Red 500
-  warning: '#f97316',  // Tailwind Orange 500
-  empty: '#22c55e',    // Tailwind Green 500
+  full: '#ef4444',   
+  warning: '#f97316', 
+  empty: '#22c55e',    
 };
 
 const statusLabels = {
@@ -21,7 +21,7 @@ const statusLabels = {
 };
 
 export default function Bin() {
-  // Count bins by status
+
   const statusCount = bins.reduce(
     (acc, bin) => {
       acc[bin.status] = (acc[bin.status] || 0) + 1;
@@ -96,8 +96,6 @@ export default function Bin() {
             ))}
           </MapContainer>
         </section>
-
-       
       </div>
     </div>
   );

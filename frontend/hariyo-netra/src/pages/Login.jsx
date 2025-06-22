@@ -26,7 +26,7 @@ const handleSubmit = async (e)=>{
 }
 
   return (
-    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
+    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-[#e6f8e6] to-white">
       <Link to={'/'}>
         <img
           src="/Images/logo.png"
@@ -67,10 +67,11 @@ const handleSubmit = async (e)=>{
             <h1 className="text-white font-bold text-2xl text-center mb-8">Log In</h1>
 
             <fieldset className="space-y-4 w-full">
+              
               <label className="block text-sm font-medium text-left">Email:</label>
               <input
               required
-                type="text"
+                type="email"
                 className="input w-full h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
                 value={email}

@@ -8,11 +8,11 @@ app.use(express.json())
 
 let users = [...mockUsers]
 
-app.get('/api/users', (req, res) => {
+app.get('/auth/users', (req, res) => {
   res.send(users)
 })
 
-app.post('/api/signup', (req, res) => {
+app.post('/auth/signup', (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
