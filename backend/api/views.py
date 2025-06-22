@@ -9,37 +9,42 @@ import json
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import os
+
 def analyze_input(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        sector = request.POST.get('sector')
-        is_sustainable = request.POST.get('is_sustainable') == 'true'
-        waste_amount = float(request.POST.get('waste_amount'))
-        waste_type = request.POST.get('waste_type')
+        try:
+            name = request.POST.get('name')
+            sector = request.POST.get('sector')
+            is_sustainable = request.POST.get('is_sustainable') == 'true'
+            waste_amount = float(request.POST.get('waste_amount'))
+            waste_type = request.POST.get('waste_type')
 
-        df = pd.DataFrame([{
-            "sector": sector,
-            "is_sustainable": is_sustainable,
-            "waste_amount": waste_amount
-        }])
+            df = pd.DataFrame([{
+                "sector": sector,
+                "is_sustainable": is_sustainable,
+                "waste_amount": waste_amount
+            }])
 
-        le = joblib.load('backend/api/ml/sector_encoder.pkl')
-        model = joblib.load('backend/api/ml/problem_classifier.pkl')
+            le = joblib.load('backend/api/ml/sector_encoder.pkl')
+            model = joblib.load('backend/api/ml/problem_classifier.pkl')
 
-        df['sector_encoded'] = le.transform(df['sector'])
-        X = df[['sector_encoded', 'is_sustainable', 'waste_amount']]
-        prediction = model.predict(X)[0]
+            df['sector_encoded'] = le.transform(df['sector'])
+            X = df[['sector_encoded', 'is_sustainable', 'waste_amount']]
+            prediction = model.predict(X)[0]
 
-        CompanyData.objects.create(
-            name=name,
-            sector=sector,
-            is_sustainable=is_sustainable,
-            has_problem=bool(prediction),
-            waste_amount=waste_amount,
-            waste_type=waste_type
-        )
+            CompanyData.objects.create(
+                name=name,
+                sector=sector,
+                is_sustainable=is_sustainable,
+                has_problem=bool(prediction),
+                waste_amount=waste_amount,
+                waste_type=waste_type
+            )
 
-        return JsonResponse({'prediction': bool(prediction)})
+            return JsonResponse({'prediction': bool(prediction)})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
@@ -64,45 +69,33 @@ def dashboard_view(request):
         if item.date_recorded:
             yearly_waste[item.date_recorded.year] += item.yearly_produced_waste or item.waste_amount or 0
 
-    sectors = list(grouped.keys())
-    waste_amounts = [grouped[s]["waste_amount"] for s in sectors]
-    predicted_by_sector = [grouped[s]["predicted"] for s in sectors]
-    reduced_by_sector = [grouped[s]["reduced"] for s in sectors]
-
-    waste_types = list(waste_type_count.keys())
-    waste_counts = list(waste_type_count.values())
-
-    years = sorted(yearly_waste.keys())
-    waste_by_year = [yearly_waste[year] for year in years]
-
     context = {
         "companies": data,
-        "sectors": json.dumps(sectors, cls=DjangoJSONEncoder),
-        "waste_amounts": json.dumps(waste_amounts, cls=DjangoJSONEncoder),
-        "waste_types": json.dumps(waste_types, cls=DjangoJSONEncoder),
-        "waste_counts": json.dumps(waste_counts, cls=DjangoJSONEncoder),
-        "years": json.dumps(years, cls=DjangoJSONEncoder),
-        "waste_by_year": json.dumps(waste_by_year, cls=DjangoJSONEncoder),
-        "predicted_by_sector": json.dumps(predicted_by_sector, cls=DjangoJSONEncoder),
-        "reduced_by_sector": json.dumps(reduced_by_sector, cls=DjangoJSONEncoder),
+        "sectors": json.dumps(list(grouped.keys()), cls=DjangoJSONEncoder),
+        "waste_amounts": json.dumps([grouped[s]["waste_amount"] for s in grouped], cls=DjangoJSONEncoder),
+        "predicted_by_sector": json.dumps([grouped[s]["predicted"] for s in grouped], cls=DjangoJSONEncoder),
+        "reduced_by_sector": json.dumps([grouped[s]["reduced"] for s in grouped], cls=DjangoJSONEncoder),
+        "waste_types": json.dumps(list(waste_type_count.keys()), cls=DjangoJSONEncoder),
+        "waste_counts": json.dumps(list(waste_type_count.values()), cls=DjangoJSONEncoder),
+        "years": json.dumps(sorted(yearly_waste.keys()), cls=DjangoJSONEncoder),
+        "waste_by_year": json.dumps([yearly_waste[y] for y in sorted(yearly_waste.keys())], cls=DjangoJSONEncoder),
     }
 
     return render(request, "dashboard.html", context)
-
 
 def upload_csv(request):
     if request.method == 'POST' and request.FILES.get('csv_file'):
         csv_file = request.FILES['csv_file']
 
-        # Save the uploaded file temporarily
+        if not csv_file.name.endswith('.csv'):
+            return JsonResponse({'status': 'error', 'message': 'Only CSV files are allowed.'}, status=400)
+
         fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'uploads'))
         filename = fs.save(csv_file.name, csv_file)
         uploaded_file_path = fs.path(filename)
 
         try:
             df = pd.read_csv(uploaded_file_path)
-
-            # Optional: fill missing columns with default values
             required_columns = [
                 'name', 'sector', 'is_sustainable', 'has_problem',
                 'waste_type', 'waste_amount', 'predicted_waste_next_year',
@@ -116,8 +109,8 @@ def upload_csv(request):
                 CompanyData.objects.create(
                     name=row['name'] or "Unnamed Company",
                     sector=row['sector'],
-                    is_sustainable=bool(int(row['is_sustainable'])),
-                    has_problem=bool(int(row['has_problem'])),
+                    is_sustainable=bool(int(row['is_sustainable'])) if pd.notna(row['is_sustainable']) else False,
+                    has_problem=bool(int(row['has_problem'])) if pd.notna(row['has_problem']) else False,
                     waste_type=row['waste_type'],
                     waste_amount=row['waste_amount'] or 0,
                     predicted_waste_next_year=row['predicted_waste_next_year'] or 0,
@@ -128,6 +121,6 @@ def upload_csv(request):
             return JsonResponse({'status': 'success', 'message': 'CSV uploaded and data saved.'})
 
         except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
     return render(request, 'upload_csv.html')

@@ -96,8 +96,6 @@ export default function Bin() {
             ))}
           </MapContainer>
         </section>
-
-       
       </div>
     </div>
   );

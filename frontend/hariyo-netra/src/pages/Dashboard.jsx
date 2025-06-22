@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 
 import { useApp } from '../context/AppContext';
-import { BinCard, StatusCard } from '../components';
+import { BinCard, CsvUpload, StatusCard } from '../components';
 
 export default function Dashboard() {
   const {user} = useApp()
@@ -39,10 +39,7 @@ export default function Dashboard() {
         {/* Top Cards */}
           <div className="bg-orange-400 text-white flex  justify-center p-4 gap-4 items-center rounded-xl ">
             <h3 className="text-lg font-semibold">Enter your company's report (.csv):</h3>
-            <form className="text-md font-bold flex gap-4 ">
-              <p><input type="file" accept=".csv" className="file-input" /></p>
-              <button className="btn" type='submit'>Upload</button>
-            </form>
+            <CsvUpload/>
           </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4">
           <div className="bg-pink-500 text-white p-4 rounded-xl shadow hover:scale-105 transition-all ease-in-out">

@@ -12,7 +12,7 @@ const AppContext = createContext();
 
   const login = async (email, password) => {
     try {
-      const res = await axios.get('/api/users')
+      const res = await axios.get('/auth/users')
       const users = res.data
       console.log("Users from API:", res.data)
       const foundUser = users.find(
