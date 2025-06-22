@@ -31,7 +31,7 @@ export default function Bin() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 p-8 font-sans">
+    <div className="flex-1 min-h-screen bg-gradient-to-br from-green-50 via-white to-green-100 p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <header className="mb-10">

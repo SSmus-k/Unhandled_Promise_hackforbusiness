@@ -3,6 +3,8 @@ import Signup from "./Signup";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import BusinessProfile from "./profile";
+import Insights from "./Insights";
+import Bin from "./Bin";
 
 
-export {Login, Signup, Home, Dashboard, BusinessProfile}
+export {Login, Signup, Home, Dashboard, BusinessProfile,Insights,Bin}

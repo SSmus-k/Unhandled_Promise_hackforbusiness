@@ -4,7 +4,7 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import MainLayout from './MainLayout'
 import MiniLayout from './MiniLayout'
-import { Home, Login, Signup, Dashboard, BusinessProfile} from './pages'
+import { Home, Login, Signup, Dashboard, BusinessProfile,Insights,Bin} from './pages'
 import { AppProvider } from './context/AppContext'
 import Subscribed from './pages/Subscribed'
 
@@ -23,7 +23,15 @@ const routes = createBrowserRouter([
       {
          path:"subscription",
         element: <Subscribed/>
-      }
+      },
+      {
+         path:"insights",
+        element: <Insights/>
+      },
+      {
+         path:"bin",
+        element: <Bin/>
+      },
     ]
   },
   {
