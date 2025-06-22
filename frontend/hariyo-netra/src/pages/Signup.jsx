@@ -7,6 +7,7 @@ export default function Signup() {
 
   const navigate = useNavigate()
   const {setUser} = useApp()
+  const [emailError, setEmailError] = useState("")
 
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -15,12 +16,18 @@ export default function Signup() {
     password:'',
   })
 
-    const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({ ...prev, [name]: value }));
+
+  if (name === "email") {
+    if (!emailRegex.test(value)) {
+      setEmailError("Invalid email format");
+    } else {
+      setEmailError("");
+    }
+  }
+};
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
@@ -38,7 +45,7 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
+    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-[#e6f8e6] to-white">
       <Link to={'/'}>
         <img
           src="/Images/logo.png"
@@ -82,6 +89,7 @@ export default function Signup() {
 
                 <label className="block text-sm font-medium text-left">Name:</label>
               <input
+              required
               name='name'
                 value={formData.name}
                 onChange={handleChange}
@@ -89,9 +97,12 @@ export default function Signup() {
                 className="input w-full h-[50px] text-black"
                 placeholder="John Doe"
               />
-
+{emailError && (
+  <p className="text-red-500 text-sm mt-1">{emailError}</p>
+)}
               <label className="block text-sm font-medium text-left">Email:</label>
               <input
+              required
               name='email'
                 value={formData.email}
                 onChange={handleChange}
@@ -102,6 +113,7 @@ export default function Signup() {
 
               <label className="block text-sm font-medium text-left">Password:</label>
               <input
+              required
               name='password'
                 type={showPassword ? 'text' : 'password'}
                 className="input w-full h-[50px] text-black"

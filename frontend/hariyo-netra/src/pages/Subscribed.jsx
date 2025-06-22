@@ -1,6 +1,6 @@
 import React from 'react'
 import { useApp } from '../context/AppContext'
-import { NoSubscription, Subscription } from '../components'
+import { Card, NoSubscription, Subscription } from '../components'
 
 export default function Subscribed() {
 
@@ -12,7 +12,10 @@ export default function Subscribed() {
   }
   else{
     return(
+      <div className='flex flex-col gap-1'>
         <NoSubscription/>
+        <Card/>
+        </div>
     )
   }
 }

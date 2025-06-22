@@ -26,7 +26,7 @@ const handleSubmit = async (e)=>{
 }
 
   return (
-    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
+    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-[#e6f8e6] to-white">
       <Link to={'/'}>
         <img
           src="/Images/logo.png"

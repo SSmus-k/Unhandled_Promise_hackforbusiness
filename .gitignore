@@ -1,0 +1,2 @@
+git rm --cached -r backend/api/pycache/
+git rm --cached -r backend/hariyobase/pycache/

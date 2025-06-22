@@ -5,6 +5,7 @@ import {
 } from 'recharts';
 
 import { useApp } from '../context/AppContext';
+import { StatusCard } from '../components';
 
 export default function Dashboard() {
   const {user} = useApp()
@@ -84,16 +85,7 @@ export default function Dashboard() {
         {/* Info Boxes Below Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Subscription Info Box */}
-          <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">
-            <h1 className="text-3xl font-serif font-semibold">Subscription status: PRO ⭐</h1>
-            <br />
-            <img
-              src="/Images/daysremainingexample.svg"
-              alt="Favicon"
-              className="max-h-30 max-w-30 object-contain mb-4"
-            />
-            <p className="text-3xl font-bold text-green-600">Days Remaining</p>
-          </div>
+          <StatusCard/>
 
           {/* Bin Tracking Info Box */}
           <div className="bg-white rounded-xl p-4 shadow h-80 flex flex-col justify-center items-center">

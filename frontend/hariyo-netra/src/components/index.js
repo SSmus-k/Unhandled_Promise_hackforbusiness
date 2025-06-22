@@ -5,5 +5,7 @@ import NoSubscription from "./NoSubscription";
 import Subscription from "./Subscription"
 import Logout from "./Logout";
 import Sidebar from "./Sidebar";
+import Card from "./Card";
+import StatusCard from "./statusCard";
 
-export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar}
+export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar,Card, StatusCard}
