@@ -1,0 +1,6 @@
+name,sector,is_sustainable,has_problem,waste_type,waste_amount,predicted_waste_next_year,yearly_produced_waste,reduced_waste_due_to_recommendation
+EcoTech Solutions,Manufacturing,1,0,Plastic,150.5,160.0,150.5,10.0
+GreenGrow Inc,Agriculture,1,0,Organic,80.0,85.0,80.0,5.0
+UrbanWaste Co,Services,0,1,Mixed,300.0,320.0,310.0,0.0
+CleanEarth Ltd,Construction,1,0,Concrete,200.0,190.0,200.0,20.0
+BioRecycle Pvt Ltd,Healthcare,0,1,Biomedical,250.0,275.0,260.0,0.0

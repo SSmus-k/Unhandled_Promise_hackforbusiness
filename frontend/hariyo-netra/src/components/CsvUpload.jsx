@@ -1,46 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function CsvUpload() {
-  const [file, setFile] = useState(null)
+  const [result, setResult] = useState(null);
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  const fileInput = e.target.csv_file;
-  if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-    alert("Please select a CSV file to upload.");
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const fileInput = e.target.csv_file;
+    if (!fileInput || !fileInput.files.length) return alert("Select a file");
 
-  const file = fileInput.files[0];
-  const formData = new FormData();
-  formData.append("csv_file", file);
+    const formData = new FormData();
+    formData.append("csv_file", fileInput.files[0]);
 
-  try {
-    const res = await fetch("/api/upload_csv/", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("/api/process_csv/", {
+        method: "POST",
+        body: formData,
+      });
 
-    const result = await res.json();
-    alert(result.message);
-  } catch (error) {
-    alert("Upload failed");
-    console.error(error);
-  }
-};
-
-
+      const data = await res.json();
+      setResult(data);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong!");
+    }
+  };
 
   return (
-    <form className="text-md font-bold flex gap-4" onSubmit={handleSubmit}>
-      <input
-        type="file"
-        name='csv_file'
-        accept=".csv"
-        className="file-input"
-        onChange={(e) => setFile(e.target.files[0])}
-      />
-      <button className="btn" type="submit">Upload</button>
-    </form>
-  )
+    <>
+      <form onSubmit={handleSubmit} className="flex gap-4">
+        <input type="file" name="csv_file" accept=".csv" className="file-input" />
+        <button className="btn" type="submit">Upload</button>
+      </form>
+
+      {result && (
+        <div className="mt-4">
+          <h2 className="text-lg font-bold">Analysis Result:</h2>
+          <pre>{JSON.stringify(result, null, 2)}</pre>
+        </div>
+      )}
+    </>
+  );
 }

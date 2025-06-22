@@ -1,7 +1,9 @@
 import express from 'express'
+import cors from 'cors'
 import { mockUsers } from './mockData.js'
 
 const app = express()
+app.use(cors())
 const port = 3000
 
 app.use(express.json()) 

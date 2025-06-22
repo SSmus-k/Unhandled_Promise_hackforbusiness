@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-100 footer sm:footer-horizontal text-base-content p-10">
+    <footer className="bg-transparent footer sm:footer-horizontal text-base-content p-10">
   <aside>
     <img src="Images/hariyo1.png" alt="HariyoNetra Logo" className='w-40' />
   </aside>
