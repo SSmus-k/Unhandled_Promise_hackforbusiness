@@ -4,6 +4,7 @@ import axios from 'axios';
 const AppContext = createContext();
 
  export const AppProvider = ({ children }) => {
+
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('user')
     return saved ? JSON.parse(saved) : null
@@ -24,7 +25,6 @@ const AppContext = createContext();
       } else {
         throw new Error('Invalid Email or password.')
       }
-      const id = foundUser.id
     } catch (err) {
       console.error("Login error:", err.message)
       throw err

@@ -2,9 +2,9 @@
   "name": "backend-node",
   "version": "1.0.0",
   "main": "index.js",
-  "exports":"module",
+  "exports": "module",
   "scripts": {
-    "start" : "node index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "node"
@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   }
 }

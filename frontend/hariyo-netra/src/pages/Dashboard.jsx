@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
 import { useApp } from '../context/AppContext';
-import { Sidebar } from '../components';
 
 export default function Dashboard() {
   const {user} = useApp()

@@ -1,11 +1,44 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useApp } from '../context/AppContext'
 
 export default function Signup() {
+
+  const navigate = useNavigate()
+  const {setUser} = useApp()
+
   const [showPassword, setShowPassword] = useState(false)
+  const [formData, setFormData] = useState({
+    name:'',
+    email:'',
+    password:'',
+  })
+
+    const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+    try{
+      const res = await axios.post('/api/signup', formData)
+      const newUser = res.data.user
+      setUser(newUser)
+      localStorage.setItem('user',JSON.stringify(newUser))
+      navigate('/dashboard')
+    }catch(err){
+     console.log(err);
+     
+    }
+    
+  }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
+    <form onSubmit={handleSubmit} className="fixed inset-0 flex items-center justify-center bg-gradient-to-bl from-slate-50 to-lime-500">
       <Link to={'/'}>
         <img
           src="/Images/logo.png"
@@ -49,6 +82,9 @@ export default function Signup() {
 
                 <label className="block text-sm font-medium text-left">Name:</label>
               <input
+              name='name'
+                value={formData.name}
+                onChange={handleChange}
                 type="text"
                 className="input w-full h-[50px] text-black"
                 placeholder="John Doe"
@@ -56,6 +92,9 @@ export default function Signup() {
 
               <label className="block text-sm font-medium text-left">Email:</label>
               <input
+              name='email'
+                value={formData.email}
+                onChange={handleChange}
                 type="text"
                 className="input w-full h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
@@ -63,8 +102,11 @@ export default function Signup() {
 
               <label className="block text-sm font-medium text-left">Password:</label>
               <input
+              name='password'
                 type={showPassword ? 'text' : 'password'}
                 className="input w-full h-[50px] text-black"
+                  value={formData.password}
+                onChange={handleChange}
                 placeholder="•••••••••••"
               />
 
@@ -82,7 +124,7 @@ export default function Signup() {
               </div>
 
               {/* Login button */}
-            <Link to='/login' className="btn bg-stone-700 text-white w-full mt-4 hover:bg-gray-800">Sign Up</Link>
+            <button type='submit' className="btn bg-stone-700 text-white w-full mt-4 hover:bg-gray-800">Sign Up</button>
             </fieldset>
 
             {/* Sign up link */}
@@ -92,6 +134,6 @@ export default function Signup() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   )
 }
