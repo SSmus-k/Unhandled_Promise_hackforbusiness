@@ -59,6 +59,10 @@ export default function BusinessProfile() {
     safeWasteEfficiency * 0.3
   ).toFixed(2);
 
+  // For Ratings
+  const starCount = Math.round(Number(sustainabilityPercent) / 20); 
+
+
 
   return (
     <div className="flex-1 min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
@@ -117,22 +121,28 @@ export default function BusinessProfile() {
             <h3 className="text-xl font-semibold mb-4">📊 Stats</h3>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-green-50 rounded-xl p-4">
-                <p className="text-2xl font-bold text-green-600">{sustainabilityPercent}%</p>
+                <p className="text-2xl font-bold text-green-600">{Math.ceil(sustainabilityPercent)}%</p>
                 <p className="text-sm text-gray-600">Sustainability</p>
               </div>
               <div className="bg-green-50 rounded-xl p-4">
-                <p className="text-2xl font-bold text-green-600">{averageWastePercentage}%</p>
+                <p className="text-2xl font-bold text-green-600">{Math.ceil(averageWastePercentage)}%</p>
                 <p className="text-sm text-gray-600">Waste Production</p>
               </div>
               <div className="flex items-center justify-center">
-                <div className="rating">
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" defaultChecked />
-                </div>
-              </div>
+  <div className="rating">
+    {[...Array(5)].map((_, index) => (
+      <input
+        key={index}
+        type="radio"
+        name="rating-2"
+        className={`mask mask-star-2 ${index < starCount ? 'bg-orange-400' : 'bg-gray-300'}`}
+        defaultChecked={index === starCount - 1}
+        readOnly
+      />
+    ))}
+  </div>
+</div>
+
             </div>
           </div>
         </div>

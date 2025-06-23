@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import { useCsvData } from '../context/CsvContext';
 
@@ -26,9 +26,16 @@ export default function CsvUpload() {
         const res = await fetch('/auth/companydata');
         const finalData = await res.json();
         setCsvData(finalData); 
+        localStorage.setItem("csvData", JSON.stringify(finalData));
       },
     });
   };
+  useEffect(() => {
+  const savedData = localStorage.getItem("csvData");
+  if (savedData) {
+    setCsvData(JSON.parse(savedData));
+  }
+}, []);
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-4">
