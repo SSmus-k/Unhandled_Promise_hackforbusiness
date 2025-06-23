@@ -2,10 +2,64 @@ import React from 'react';
 
 import { useApp } from '../context/AppContext';
 
-
+import { useCsvData } from '../context/CsvContext';
 
 export default function BusinessProfile() {
+
   const {user} = useApp()
+  const {csvData} = useCsvData()
+
+  const totalWaste = csvData?.reduce((sum, row) => {
+    return sum + Number(row["Total Waste (kg)"] || 0);
+  }, 0);
+
+  const totalProducts = csvData?.reduce((sum, row) => 
+    sum + Number(row["Total Products (units)"] || 0), 0
+  );
+
+  const averageWastePercentage = totalProducts 
+    ? ((totalWaste / totalProducts) * 100).toFixed(2) 
+    : 0;
+
+  // Reusable Waste
+  const reusableCategories = ['Plastic', 'Metal']; 
+  const totalReusableWaste = csvData?.reduce((sum, monthData) => {
+    return sum + reusableCategories.reduce((catSum, cat) => {
+      return catSum + (Number(monthData[cat]) || 0);
+    }, 0);
+  }, 0);
+
+  // Total Carbon Offset
+  const totalCarbon = csvData?.reduce((sum, row) => {
+    return sum + Number(row["Carbon Offset (kg CO2)"] || 0);
+  }, 0);
+
+  // Sustainable percentage
+  // 1. Recycling Efficiency
+  const recyclePercentage = totalWaste ? (totalReusableWaste / totalWaste) * 100 : 0;
+
+  // 2. Carbon Offset Level
+  const carbonOffsetPerProduct = totalProducts ? totalCarbon / totalProducts : 0;
+
+  // 3. Waste per Product Ratio
+  const wastePerProduct = totalProducts ? totalWaste / totalProducts : 0;
+
+  // Condition for sustainability
+  // Recycling efficiency > 60%, Waste per product < 0.3kg, Carbon offset > 0.02
+  const isSustainable = recyclePercentage > 60 && wastePerProduct < 0.3 && carbonOffsetPerProduct > 0.02;
+
+  // Safe Waste Efficiency
+  const wasteEfficiency = wastePerProduct ? (1 - (wastePerProduct / 0.3)) * 100 : 0;
+  const safeWasteEfficiency = Math.max(0, Math.min(wasteEfficiency, 100));
+
+  // Final Sustainability Percentage
+  const sustainabilityPercent = (
+    recyclePercentage * 0.4 +
+    carbonOffsetPerProduct * 0.3 +
+    safeWasteEfficiency * 0.3
+  ).toFixed(2);
+
+
   return (
     <div className="flex-1 min-h-screen bg-gradient-to-br from-white to-[#e6f8e6] p-8 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl bg-white/70 backdrop-blur-md p-8 space-y-8">
@@ -27,7 +81,7 @@ export default function BusinessProfile() {
             <div className="flex flex-wrap justify-center md:justify-start gap-2 mt-3">
               <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">Top Rated</span>
               <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">20+ Projects</span>
-              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold">Sustainable</span>
+              <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold">{isSustainable?"Sustainable":"Not Sustainable"}</span>
             </div>
           </div>
           
@@ -63,11 +117,11 @@ export default function BusinessProfile() {
             <h3 className="text-xl font-semibold mb-4">📊 Stats</h3>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-green-50 rounded-xl p-4">
-                <p className="text-2xl font-bold text-green-600">99%</p>
+                <p className="text-2xl font-bold text-green-600">{sustainabilityPercent}%</p>
                 <p className="text-sm text-gray-600">Sustainability</p>
               </div>
               <div className="bg-green-50 rounded-xl p-4">
-                <p className="text-2xl font-bold text-green-600">0.1%</p>
+                <p className="text-2xl font-bold text-green-600">{averageWastePercentage}%</p>
                 <p className="text-sm text-gray-600">Waste Production</p>
               </div>
               <div className="flex items-center justify-center">

@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { mockUsers } from './mockData.js'
 
+import CompanydataRoute from './routes/CompanyData.js'
 const app = express()
 app.use(cors())
 const port = 3000
@@ -13,6 +14,8 @@ let users = [...mockUsers]
 app.get('/auth/users', (req, res) => {
   res.send(users)
 })
+
+// API for Authentication
 
 app.post('/auth/signup', (req, res) => {
   const { name, email, password } = req.body;
@@ -45,6 +48,11 @@ app.post('/auth/signup', (req, res) => {
   res.status(201).json({ message: 'User registered successfully', user: newUser });
 })
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
-})
+
+// API for Company Data
+
+app.use(express.json());
+
+app.use("/auth/companydata", CompanydataRoute);
+
+app.listen(3000, () => console.log("Server running on port 3000"));

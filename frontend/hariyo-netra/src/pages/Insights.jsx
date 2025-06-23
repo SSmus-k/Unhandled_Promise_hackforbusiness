@@ -9,14 +9,52 @@ import {
 } from 'recharts';
 import { Lightbulb, Recycle, Leaf, Users } from 'lucide-react';
 
-const sampleData = [
-  { name: 'Plastic', waste: 400 },
-  { name: 'Organic', waste: 300 },
-  { name: 'Metal', waste: 200 },
-  { name: 'E-waste', waste: 100 },
-];
+import { useCsvData } from '../context/CsvContext';
+
+
 
 export default function Insights() {
+  const {csvData} = useCsvData()
+
+// Total Waste
+  const totalWaste = csvData.reduce((sum, row) => {
+  return sum + Number(row["Total Waste (kg)"] || 0);
+}, 0);
+
+// Total Carbon Offset
+  const totalCarbon = csvData.reduce((sum, row) => {
+  return sum + Number(row["Carbon Offset (kg CO2)"] || 0);
+}, 0);
+
+// Data for Bar Graph
+const categories = ['Plastic', 'Metal', 'Organic',"Glass","E-waste"]; 
+
+const yearlyData = categories.map(category => {
+  let total = 0;
+  csvData.forEach(monthData => {
+    total += Number(monthData[category]) || 0;
+  });
+  return {
+    name: category,
+    waste: total
+  };
+});
+
+// Reusable Waste
+const reusableCategories = ['Plastic', 'Metal']; // Define your reusable waste categories
+
+const totalReusableWaste = csvData.reduce((sum, monthData) => {
+  return sum + reusableCategories.reduce((catSum, cat) => {
+    return catSum + (Number(monthData[cat]) || 0);
+  }, 0);
+}, 0);
+
+
+// Recyclable Percentage
+const recyclePercentage = Math.round((Number(totalReusableWaste)/Number(totalWaste)) * 100 )
+
+
+
   const [showContacts, setShowContacts] = useState(false);
 
   return (
@@ -32,17 +70,17 @@ export default function Insights() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-white shadow-md rounded-2xl p-6">
           <h2 className="text-xl font-semibold mb-2 text-green-700">Total Waste Generated</h2>
-          <p className="text-3xl font-bold">3,200 kg</p>
-          <span className="text-sm text-gray-500">Last 30 days</span>
+          <p className="text-3xl font-bold">{totalWaste} kg</p>
+          <span className="text-sm text-gray-500">Last 12 months</span>
         </div>
         <div className="bg-white shadow-md rounded-2xl p-6">
           <h2 className="text-xl font-semibold mb-2 text-green-700">Recycling Efficiency</h2>
-          <p className="text-3xl font-bold">76%</p>
+          <p className="text-3xl font-bold">{recyclePercentage}%</p>
           <span className="text-sm text-gray-500">Up by 8% from last month</span>
         </div>
         <div className="bg-white shadow-md rounded-2xl p-6">
           <h2 className="text-xl font-semibold mb-2 text-green-700">Carbon Offset</h2>
-          <p className="text-3xl font-bold">1.2 tons</p>
+          <p className="text-3xl font-bold">{totalCarbon} kg</p>
           <span className="text-sm text-gray-500">via sustainable disposal</span>
         </div>
       </section>
@@ -51,9 +89,9 @@ export default function Insights() {
       <section className="bg-white rounded-2xl shadow-md p-6 mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-green-800">Waste Breakdown</h2>
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={sampleData}>
-            <XAxis dataKey="name" />
-            <YAxis />
+          <BarChart data={yearlyData}>
+            <XAxis dataKey="name" label={{ value: 'Waste Category', position: 'insideBottom', offset: -5 }} />
+            <YAxis label={{ value: 'Amount (kg)', angle: -90, position: 'insideLeft', offset: 10 }} />
             <Tooltip />
             <Bar dataKey="waste" fill="#34d399" radius={[8, 8, 0, 0]} />
           </BarChart>

@@ -7,6 +7,7 @@ import MiniLayout from './MiniLayout'
 import { Home, Login, Signup, Dashboard, BusinessProfile,Insights,Bin,SubPage} from './pages'
 import { AppProvider } from './context/AppContext'
 import Subscribed from './pages/Subscribed'
+import { CsvProvider } from './context/CsvContext'
 
 const routes = createBrowserRouter([
   {
@@ -61,8 +62,10 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <CsvProvider>
     <AppProvider>
     <RouterProvider router={routes}></RouterProvider>
     </AppProvider>
+    </CsvProvider>
   </StrictMode>,
 )

@@ -5,7 +5,7 @@ import { NoSubscription, Subscription } from '../components'
 export default function Subscribed() {
 
     const {user} = useApp()
-    user.isSubscribed = false
+    user.isSubscribed = true
   if(user.isSubscribed){
     return(
         <Subscription/>

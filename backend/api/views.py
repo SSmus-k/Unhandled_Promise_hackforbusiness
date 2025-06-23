@@ -9,23 +9,14 @@ import json
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import os
-<<<<<<< HEAD
-from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
-def upload_csv(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Only POST requests allowed'}, status=405)
-=======
-<<<<<<< HEAD
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
 
-=======
->>>>>>> origin/pushkar
 
 def analyze_input(request):
     if request.method == 'POST':
@@ -49,18 +40,8 @@ def analyze_input(request):
             X = df[['sector_encoded', 'is_sustainable', 'waste_amount']]
             prediction = model.predict(X)[0]
 
-<<<<<<< HEAD
-        CompanyData.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            name=name,
-            sector=sector,
-            is_sustainable=is_sustainable,
-            has_problem=bool(prediction),
-            waste_amount=waste_amount,
-            waste_type=waste_type
-        )
-=======
             CompanyData.objects.create(
+                user=request.user if request.user.is_authenticated else None,
                 name=name,
                 sector=sector,
                 is_sustainable=is_sustainable,
@@ -68,7 +49,6 @@ def analyze_input(request):
                 waste_amount=waste_amount,
                 waste_type=waste_type
             )
->>>>>>> origin/pushkar
 
             return JsonResponse({'prediction': bool(prediction)})
 
@@ -102,18 +82,6 @@ def dashboard_view(request):
                 item.yearly_produced_waste or item.waste_amount or 0
             )
 
-<<<<<<< HEAD
-    sectors = list(grouped.keys())
-    waste_amounts = [grouped[s]["waste_amount"] for s in sectors]
-    predicted_by_sector = [grouped[s]["predicted"] for s in sectors]
-    reduced_by_sector = [grouped[s]["reduced"] for s in sectors]
-    waste_types = list(waste_type_count.keys())
-    waste_counts = list(waste_type_count.values())
-    years = sorted(yearly_waste.keys())
-    waste_by_year = [yearly_waste[year] for year in years]
-
-=======
->>>>>>> origin/pushkar
     context = {
         "companies": data,
         "sectors": json.dumps(list(grouped.keys()), cls=DjangoJSONEncoder),
@@ -128,40 +96,27 @@ def dashboard_view(request):
 
     return render(request, "dashboard.html", context)
 
+
+@csrf_exempt
 def upload_csv(request):
-    if request.method == 'POST' and request.FILES.get('csv_file'):
-        csv_file = request.FILES['csv_file']
-<<<<<<< HEAD
-=======
->>>>>>> origin/main
+    if request.method != 'POST' or not request.FILES.get('csv_file'):
+        return JsonResponse({'error': 'Only POST requests with CSV file allowed'}, status=400)
 
-    if not request.FILES:
-        return JsonResponse({'error': 'No files uploaded'}, status=400)
-
-<<<<<<< HEAD
     csv_file = request.FILES.get('csv_file')
-    if not csv_file:
-        return JsonResponse({'error': 'No CSV file provided'}, status=400)
 
-    # Validate file extension
     if not csv_file.name.lower().endswith('.csv'):
         return JsonResponse({'error': 'Only CSV files are allowed'}, status=400)
 
     try:
-        # Read CSV directly from memory without saving
         df = pd.read_csv(csv_file)
-        
-        # Convert empty strings to None
         df = df.replace(r'^\s*$', None, regex=True)
-        
-        # Prepare required columns
+
         required_columns = [
             'name', 'sector', 'is_sustainable', 'has_problem',
             'waste_type', 'waste_amount', 'predicted_waste_next_year',
             'yearly_produced_waste', 'reduced_waste_due_to_recommendation'
         ]
-        
-        # Create records list for bulk_create
+
         records = []
         for _, row in df.iterrows():
             records.append(CompanyData(
@@ -175,10 +130,9 @@ def upload_csv(request):
                 yearly_produced_waste=float(row['yearly_produced_waste']) if pd.notna(row.get('yearly_produced_waste')) else 0,
                 reduced_waste_due_to_recommendation=float(row['reduced_waste_due_to_recommendation']) if pd.notna(row.get('reduced_waste_due_to_recommendation')) else 0
             ))
-        
-        # Use bulk_create for better performance
+
         CompanyData.objects.bulk_create(records)
-        
+
         return JsonResponse({
             'status': 'success',
             'message': f'Successfully uploaded {len(records)} records',
@@ -193,50 +147,8 @@ def upload_csv(request):
         return JsonResponse({'error': f'Data conversion error: {str(e)}'}, status=400)
     except Exception as e:
         import traceback
-        traceback.print_exc()  # Print full traceback to console
+        traceback.print_exc()
         return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
-=======
->>>>>>> origin/pushkar
-        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'uploads'))
-        filename = fs.save(csv_file.name, csv_file)
-        uploaded_file_path = fs.path(filename)
-
-        try:
-            df = pd.read_csv(uploaded_file_path)
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/pushkar
-            required_columns = [
-                'name', 'sector', 'is_sustainable', 'has_problem',
-                'waste_type', 'waste_amount', 'predicted_waste_next_year',
-                'yearly_produced_waste', 'reduced_waste_due_to_recommendation'
-            ]
-            for col in required_columns:
-                if col not in df.columns:
-                    df[col] = None
-
-            for _, row in df.iterrows():
-                CompanyData.objects.create(
-                    user=request.user if request.user.is_authenticated else None,
-                    name=row['name'] or "Unnamed Company",
-                    sector=row['sector'],
-                    is_sustainable=bool(int(row['is_sustainable'])) if pd.notna(row['is_sustainable']) else False,
-                    has_problem=bool(int(row['has_problem'])) if pd.notna(row['has_problem']) else False,
-                    waste_type=row['waste_type'],
-                    waste_amount=row['waste_amount'] or 0,
-                    predicted_waste_next_year=row['predicted_waste_next_year'] or 0,
-                    yearly_produced_waste=row['yearly_produced_waste'] or 0,
-                    reduced_waste_due_to_recommendation=row['reduced_waste_due_to_recommendation'] or 0
-                )
-
-            return JsonResponse({'status': 'success', 'message': 'CSV uploaded and data saved.'})
-
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
-    return render(request, 'upload_csv.html')
-<<<<<<< HEAD
 
 
 class RegisterView(APIView):
@@ -256,6 +168,3 @@ class RegisterView(APIView):
         user.first_name = name
         user.save()
         return Response({"message": "User created"}, status=201)
-=======
->>>>>>> origin/pushkar
->>>>>>> origin/main

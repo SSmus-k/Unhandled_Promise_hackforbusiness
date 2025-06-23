@@ -8,5 +8,6 @@ import Sidebar from "./Sidebar";
 import StatusCard from "./statusCard";
 import BinCard from "./BinCard";
 import CsvUpload from "./CsvUpload";
+import WasteCategoryPieChart from "./PieChart1";
 
-export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar, StatusCard, BinCard, CsvUpload}
+export {Footer, Header, About, NoSubscription, Subscription, Logout, Sidebar, StatusCard, BinCard, CsvUpload, WasteCategoryPieChart}

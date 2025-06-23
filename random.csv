@@ -1,6 +1,13 @@
-name,sector,is_sustainable,has_problem,waste_type,waste_amount,predicted_waste_next_year,yearly_produced_waste,reduced_waste_due_to_recommendation
-EcoTech Solutions,Manufacturing,1,0,Plastic,150.5,160.0,150.5,10.0
-GreenGrow Inc,Agriculture,1,0,Organic,80.0,85.0,80.0,5.0
-UrbanWaste Co,Services,0,1,Mixed,300.0,320.0,310.0,0.0
-CleanEarth Ltd,Construction,1,0,Concrete,200.0,190.0,200.0,20.0
-BioRecycle Pvt Ltd,Healthcare,0,1,Biomedical,250.0,275.0,260.0,0.0
+Month,Total Waste (kg),Total Products (units),Reusable Waste (kg),Carbon Offset (kg CO2),Plastic,Metal,Organic,Glass,E-waste
+January,300,1000,120,25,80,60,90,50,20
+February,280,950,110,23,75,50,85,45,25
+March,310,1050,130,26,85,65,95,40,25
+April,290,970,115,24,70,55,100,45,20
+May,305,990,125,27,78,60,92,50,25
+June,295,980,118,25,74,58,88,45,30
+July,310,1020,130,28,90,62,95,40,23
+August,320,1080,135,29,95,70,88,45,22
+September,300,1010,120,25,80,55,100,40,25
+October,285,960,110,23,75,50,90,50,20
+November,275,940,105,22,70,45,85,55,20
+December,290,950,115,24,80,60,90,45,15

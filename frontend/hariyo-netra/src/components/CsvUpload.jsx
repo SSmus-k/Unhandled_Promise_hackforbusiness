@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
+import Papa from 'papaparse';
+import { useCsvData } from '../context/CsvContext';
 
 export default function CsvUpload() {
-  const [result, setResult] = useState(null);
+  const [file, setFile] = useState(null);
+  const { setCsvData } = useCsvData();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const fileInput = e.target.csv_file;
-    if (!fileInput || !fileInput.files.length) return alert("Select a file");
+    if (!file) return alert('Please select a file');
 
-    const formData = new FormData();
-    formData.append("csv_file", fileInput.files[0]);
+    Papa.parse(file, {
+      header: true,
+      complete: async (results) => {
+        const json = results.data;
 
-    try {
-      const res = await fetch("/api/process_csv/", {
-        method: "POST",
-        body: formData,
-      });
+        // API lai data pathako
+        await fetch('/auth/companydata', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(json),
+        });
 
-      const data = await res.json();
-      setResult(data);
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong!");
-    }
+        // API bata data taneko
+        const res = await fetch('/auth/companydata');
+        const finalData = await res.json();
+        setCsvData(finalData); 
+      },
+    });
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="flex gap-4">
-        <input type="file" name="csv_file" accept=".csv" className="file-input" />
-        <button className="btn" type="submit">Upload</button>
-      </form>
-
-      {result && (
-        <div className="mt-4">
-          <h2 className="text-lg font-bold">Analysis Result:</h2>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
-        </div>
-      )}
-    </>
+    <form onSubmit={handleSubmit} className="flex gap-4">
+      <input
+        type="file"
+        accept=".csv"
+        onChange={(e) => setFile(e.target.files[0])}
+        className="file-input text-gray-900"
+      />
+      <button className="btn" type="submit">Upload</button>
+    </form>
   );
 }
