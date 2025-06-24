@@ -32,7 +32,7 @@ const handleChange = (e) => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     try{
-      const res = await axios.post('/api/signup', formData)
+      const res = await axios.post('/auth/signup', formData)
       const newUser = res.data.user
       setUser(newUser)
       localStorage.setItem('user',JSON.stringify(newUser))
