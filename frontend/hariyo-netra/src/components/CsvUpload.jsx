@@ -43,9 +43,9 @@ export default function CsvUpload() {
         type="file"
         accept=".csv"
         onChange={(e) => setFile(e.target.files[0])}
-        className="file-input text-gray-900"
+        className="file-input file-input-success bg-white text-gray-900 "
       />
-      <button className="btn" type="submit">Upload</button>
+      <button className="btn bg-white text-gray-800 border-none" type="submit">Upload</button>
     </form>
   );
 }

@@ -36,9 +36,9 @@ const handleSubmit = async (e)=>{
       </Link>
 
       {/* Larger box container */}
-      <div className="bg-base-200 rounded-xl shadow-md w-[1000px] h-[600px] flex overflow-hidden">
+      <div className="bg-white rounded-xl shadow-md w-[1000px] h-[600px] flex overflow-hidden">
         {/* Left side bigger box */}
-        <div className="flex-grow bg-base-100 rounded-l-xl p-6 flex flex-col">
+        <div className="flex-grow bg-white rounded-l-xl p-6 flex flex-col">
           {/* Top half with image */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <img
@@ -72,7 +72,7 @@ const handleSubmit = async (e)=>{
               <input
               required
                 type="email"
-                className="input w-full h-[50px] text-black"
+                className="input w-full h-[50px] bg-white text-black"
                 placeholder="johndoe@xyz.com"
                 value={email}
                 onChange={(e)=>(setEmail(e.target.value))}
@@ -82,7 +82,7 @@ const handleSubmit = async (e)=>{
               <input
               required
                 type={showPassword ? 'text' : 'password'}
-                className="input w-full h-[50px] text-black"
+                className="input w-full h-[50px] bg-white text-black"
                 placeholder="•••••••••••"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}

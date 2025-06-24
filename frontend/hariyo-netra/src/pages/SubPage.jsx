@@ -45,7 +45,7 @@ const plans = [
 
 export default function SubPage() {
   return (
-    <div className="py-16 px-6 bg-transparent text-gray-800">
+    <div className="py-16 px-6 bg-white text-gray-800">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-2">Choose your plan</h2>
         <p className="text-gray-600">Flexible plans for every stage of your business</p>

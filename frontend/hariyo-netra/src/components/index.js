@@ -5,7 +5,7 @@ import NoSubscription from "./NoSubscription";
 import Subscription from "./Subscription"
 import Logout from "./Logout";
 import Sidebar from "./Sidebar";
-import StatusCard from "./statusCard";
+import StatusCard from "./StatusCard";
 import BinCard from "./BinCard";
 import CsvUpload from "./CsvUpload";
 import WasteCategoryPieChart from "./PieChart1";

@@ -1,8 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import { mockUsers } from './mockData.js'
+import fs from 'node:fs'
 
 import CompanydataRoute from './routes/CompanyData.js'
+import path from 'node:path'
 const app = express()
 app.use(cors())
 const port = 3000
@@ -45,6 +47,15 @@ app.post('/auth/signup', (req, res) => {
 
 
   users.push(newUser);
+    const dataToWrite = `export const mockUsers = ${JSON.stringify(users, null, 2)};`;
+  fs.writeFile(path.join(process.cwd(),('/mockData.js')), dataToWrite, err=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log("📥 " + newUser.name + " registered succesfully.") 
+    }
+})
   res.status(201).json({ message: 'User registered successfully', user: newUser });
 })
 

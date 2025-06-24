@@ -20,13 +20,7 @@ const handleChange = (e) => {
   const { name, value } = e.target;
   setFormData((prev) => ({ ...prev, [name]: value }));
 
-  if (name === "email") {
-    if (!emailRegex.test(value)) {
-      setEmailError("Invalid email format");
-    } else {
-      setEmailError("");
-    }
-  }
+
 };
 
   const handleSubmit = async(e)=>{
@@ -55,9 +49,9 @@ const handleChange = (e) => {
       </Link>
 
       {/* Larger box container */}
-      <div className="bg-base-200 rounded-xl shadow-md w-[1000px] h-[600px] flex overflow-hidden">
+      <div className="bg-white rounded-xl shadow-md w-[1000px] h-[600px] flex overflow-hidden">
         {/* Left side bigger box */}
-        <div className="flex-grow bg-base-100 rounded-l-xl p-6 flex flex-col">
+        <div className="flex-grow bg-white rounded-l-xl p-6 flex flex-col">
           {/* Top half with image */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <img
@@ -94,7 +88,7 @@ const handleChange = (e) => {
                 value={formData.name}
                 onChange={handleChange}
                 type="text"
-                className="input w-full h-[50px] text-black"
+                className="input w-full h-[50px] bg-white text-black"
                 placeholder="John Doe"
               />
 {emailError && (
@@ -107,7 +101,7 @@ const handleChange = (e) => {
                 value={formData.email}
                 onChange={handleChange}
                 type="email"
-                className="input w-full h-[50px] text-black"
+                className="input w-full bg-white h-[50px] text-black"
                 placeholder="johndoe@xyz.com"
               />
 
@@ -116,7 +110,7 @@ const handleChange = (e) => {
               required
               name='password'
                 type={showPassword ? 'text' : 'password'}
-                className="input w-full h-[50px] text-black"
+                className="input bg-white w-full h-[50px] text-black"
                   value={formData.password}
                 onChange={handleChange}
                 placeholder="•••••••••••"
